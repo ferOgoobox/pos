@@ -21,7 +21,7 @@ class ComprasModel extends Model
     ];
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'fecha_alta';
     protected $updatedField  = 'fecha_edit';
@@ -43,4 +43,18 @@ class ComprasModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+
+    public function insertaCompra($id_compra, $total, $id_usuario){
+        $data = [
+            'folio' => $id_compra,
+            'total' => $total,
+            'id_usuario' => $id_usuario,
+        ];
+
+        $this->insert($data);
+
+        return $this->insertID();
+    }
+    
 }

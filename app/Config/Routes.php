@@ -62,6 +62,7 @@ $routes->get('/productos/eliminar/(:any)', 'Productos::eliminar/$1');
 $routes->post('/productos/actualizar', 'Productos::actualizar');
 $routes->get('/productos/eliminados', 'Productos::eliminados');
 $routes->get('/productos/reingresar/(:any)', 'Productos::reingresar/$1');
+$routes->get('/productos/buscarPorCodigo/(:any)', 'Productos::buscarPorCodigo/$1');
 
 $routes->get('/clientes', 'Clientes::index');
 $routes->get('/clientes/nuevo', 'Clientes::nuevo');
@@ -116,6 +117,21 @@ $routes->get('/compras/eliminar/(:any)', 'Compras::eliminar/$1');
 $routes->post('/compras/actualizar', 'Compras::actualizar');
 $routes->get('/compras/eliminados', 'Compras::eliminados');
 $routes->get('/compras/reingresar/(:any)', 'Compras::reingresar/$1');
+$routes->post('/compras/guarda', 'Compras::guarda');
+$routes->get('/compras/generaCompraPdf/(:any)', 'Compras::generaCompraPdf/$1');
+$routes->get('/compras/muestraCompraPdf/(:any)', 'Compras::muestraCompraPdf/$1');
+
+
+$routes->get('/TemporalCompra/insertar/(:num)/(:num)/(:any)', 'TemporalCompra::insertar/$1/$2/$3');
+$routes->get('/TemporalCompra/eliminar/(:num)/(:any)', 'TemporalCompra::eliminar/$1/$2');
+$routes->get('/TemporalCompra/eliminar/(:num)/(:any)', 'TemporalCompra::eliminar/$1/$2');
+
+
+
+
+// $routes->get('TemporalCompra/insertar/(:num)/(:num)/(:num)', 'TemporalCompra/insertar/$1/$2/$3');
+// $route['TemporalCompra/insertar/(:num)/(:num)/(:num)'] = 'TemporalCompra/insertar/$1/$2/$3';
+
 
 
 

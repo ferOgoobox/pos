@@ -235,18 +235,17 @@ class Productos extends BaseController {
 
         $res['existe'] = false;
         $res['datos'] = '';
-        $error = '';
+        $res['error'] = '';
 
         if($datos){
             $res['datos'] = $datos;
             $res['existe'] = true;
         }else{
-            $error = 'No existe el producto';
+            $res['error'] = 'No existe el producto';
             $res['existe'] = false;
         }
-        
-        return redirect()->to(base_url().'/productos');
 
+        echo json_encode($res);
     }
 
 

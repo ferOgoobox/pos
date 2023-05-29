@@ -6,8 +6,7 @@
 
     <div>
         <p>
-            <a class="btn btn-info" href="<?php echo base_url() ?>/unidades/nuevo">Agregar</a>
-            <a class="btn btn-warning" href="<?php echo base_url() ?>/unidades/eliminados">Eliminados</a>
+            <a class="btn btn-warning" href="<?php echo base_url() ?>/compras/eliminados">Eliminados</a>
         </p>
     </div>
 
@@ -20,9 +19,9 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Nombre Corto</th>
-                            <th></th>
+                            <th>Folio</th>
+                            <th>Total</th>
+                            <th>Fecha</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -30,22 +29,12 @@
                         <?php foreach ($datos as $dato) { ?>
                             <tr>
                                 <td><?php echo $dato['id'] ?></td>
-                                <td><?php echo $dato['nombre'] ?></td>
-                                <td><?php echo $dato['nombre_corto'] ?></td>
+                                <td><?php echo $dato['folio'] ?></td>
+                                <td><?php echo $dato['total'] ?></td>
+                                <td><?php echo $dato['fecha_alta'] ?></td>
                                 <td>
-                                    <a class="btn btn-warning" href="<?php echo base_url() ?>/unidades/editar/<?php echo $dato['id'] ?>">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-danger" 
-                                        href="#" 
-                                        data-toggle="modal" 
-                                        data-target="#modal-confirma" 
-                                        data-placement="top"
-                                        data-href="<?php echo base_url() ?>/unidades/eliminar/<?php echo $dato['id'] ?>"
-                                    >
-                                        <i class="fas fa-trash"></i>
+                                    <a class="btn btn-primary" href="<?php echo base_url() ?>/compras/muestraCompraPdf/<?php echo $dato['id'] ?>">
+                                        <i class="fas fa-file-alt"></i>
                                     </a>
                                 </td>
                             </tr>

@@ -30,7 +30,7 @@ class ProductosModel extends Model
     protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'fecha_alta';
-    protected $updatedField  = 'fecha_edit';
+    protected $updatedField  = '';
     protected $deletedField  = 'deleted_at';
 
     // Validation
@@ -49,4 +49,10 @@ class ProductosModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function actualizaStock($id_producto, $cantidad){
+        $this->set('existencia', "existencia + $cantidad", FALSE);
+        $this->where('id', $id_producto);
+        $this->update();
+    }
 }
