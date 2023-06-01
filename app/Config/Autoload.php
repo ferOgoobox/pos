@@ -63,6 +63,7 @@ class Autoload extends AutoloadConfig
      */
     public $classmap = [
         'FPDF' => APPPATH . 'ThirdParty/fpdf/fpdf.php',
+        'barcode_genera' => APPPATH . 'Libraries/barcode.php',
     ];
 
     /**

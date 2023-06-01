@@ -29,11 +29,15 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+$routes->get('/inicio', 'Inicio::index');
+
+
 $routes->get('/', 'Usuarios::login');
 $routes->post('/usuarios/valida', 'Usuarios::valida');
 $routes->get('/usuarios/cambia_password', 'Usuarios::cambia_password');
 $routes->post('/usuarios/actualizar_password', 'Usuarios::actualizar_password');
 $routes->get('/usuarios/logout', 'Usuarios::logout');
+$routes->get('/usuarios/logsAcceso', 'Usuarios::logsAcceso');
 
 
 $routes->get('/unidades', 'Unidades::index');
@@ -63,6 +67,11 @@ $routes->post('/productos/actualizar', 'Productos::actualizar');
 $routes->get('/productos/eliminados', 'Productos::eliminados');
 $routes->get('/productos/reingresar/(:any)', 'Productos::reingresar/$1');
 $routes->get('/productos/buscarPorCodigo/(:any)', 'Productos::buscarPorCodigo/$1');
+$routes->get('/productos/autocompleteData', 'Productos::autocompleteData');
+$routes->get('/productos/generaBarras', 'Productos::generaBarras');
+$routes->get('/productos/muestraCodigos', 'Productos::muestraCodigos');
+$routes->get('/productos/mostrarMinimos', 'Productos::mostrarMinimos');
+$routes->get('/productos/generaMinimosPdf', 'Productos::generaMinimosPdf');
 
 $routes->get('/clientes', 'Clientes::index');
 $routes->get('/clientes/nuevo', 'Clientes::nuevo');
@@ -72,6 +81,7 @@ $routes->get('/clientes/eliminar/(:any)', 'Clientes::eliminar/$1');
 $routes->post('/clientes/actualizar', 'Clientes::actualizar');
 $routes->get('/clientes/eliminados', 'Clientes::eliminados');
 $routes->get('/clientes/reingresar/(:any)', 'Clientes::reingresar/$1');
+$routes->get('/clientes/autocompleteData', 'Clientes::autocompleteData');
 
 $routes->get('/configuracion', 'Configuracion::index');
 $routes->get('/configuracion/nuevo', 'Configuracion::nuevo');
@@ -125,6 +135,22 @@ $routes->get('/compras/muestraCompraPdf/(:any)', 'Compras::muestraCompraPdf/$1')
 $routes->get('/TemporalCompra/insertar/(:num)/(:num)/(:any)', 'TemporalCompra::insertar/$1/$2/$3');
 $routes->get('/TemporalCompra/eliminar/(:num)/(:any)', 'TemporalCompra::eliminar/$1/$2');
 $routes->get('/TemporalCompra/eliminar/(:num)/(:any)', 'TemporalCompra::eliminar/$1/$2');
+
+
+$routes->get('/ventas', 'Ventas::index');
+$routes->get('/ventas/venta', 'Ventas::venta');
+$routes->post('/ventas/guarda', 'Ventas::guarda');
+$routes->get('/ventas/generaTicket/(:any)', 'Ventas::generaTicket/$1');
+$routes->get('/ventas/muestraTicket/(:any)', 'Ventas::muestraTicket/$1');
+$routes->get('/ventas/eliminados', 'Ventas::eliminados');
+$routes->get('/ventas/eliminar/(:any)', 'Ventas::eliminar/$1');
+
+
+$routes->post('/ventas/insertar', 'Ventas::insertar');
+$routes->get('/ventas/editar/(:any)', 'Ventas::editar/$1');
+$routes->post('/ventas/actualizar', 'Ventas::actualizar');
+$routes->get('/ventas/reingresar/(:any)', 'Ventas::reingresar/$1');
+$routes->get('/ventas/buscarPorCodigo/(:any)', 'Ventas::buscarPorCodigo/$1');
 
 
 

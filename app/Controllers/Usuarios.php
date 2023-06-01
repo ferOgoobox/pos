@@ -6,12 +6,14 @@ use App\Controllers\BaseController;
 use App\Models\UsuariosModel;
 use App\Models\CajasModel;
 use App\Models\RolesModel;
+use App\Models\LogsModel;
 
 class Usuarios extends BaseController {
 
     protected $usuarios;
     protected $cajas;
     protected $roles;
+    protected $logs;
     protected $reglas, $reglasLogin, $reglasCambiaPassword;
 
     public function __construct()
@@ -19,6 +21,7 @@ class Usuarios extends BaseController {
         $this->usuarios = new UsuariosModel();
         $this->cajas = new CajasModel();
         $this->roles = new RolesModel();
+        $this->logs = new LogsModel();
 
         helper(['form']);
 
@@ -261,10 +264,25 @@ class Usuarios extends BaseController {
                         'id_caja' => $datosUsuario['id_caja'],
                         'id_rol' => $datosUsuario['id_rol'],
                     ];
+
+                    // START LOGS
+                    $request = service('request');
+                    $ip = $request->getIPAddress();
+                    $userAgent = $request->getUserAgent();
+                    $detalles = $userAgent->getAgentString();
+
+                    $this->logs->save([
+                        'id_usuario' => $datosUsuario['id'],
+                        'evento' => 'Inicio de sesión',
+                        'ip' => $ip,
+                        'detalles' => $detalles,
+                    ]);
+                    // END LOGS
+
                     $session = session();
                     $session->set($datosSesion);
 
-                    return redirect()->to(base_url().'configuracion');
+                    return redirect()->to(base_url().'inicio');
                 }else{
                     $data['error'] = 'Las contraseñas no coinciden.';
                     echo view('login', $data);
@@ -287,6 +305,20 @@ class Usuarios extends BaseController {
     public function logout()
     {
         $session = session();
+
+         // START LOGS
+         $request = service('request');
+         $ip = $request->getIPAddress();
+         $userAgent = $request->getUserAgent();
+         $detalles = $userAgent->getAgentString();
+
+         $this->logs->save([
+             'id_usuario' => $session->id_usuario,
+             'evento' => 'Cierre de sesión',
+             'ip' => $ip,
+             'detalles' => $detalles,
+         ]);
+         // END LOGS
 
         $session->destroy();
 
@@ -348,6 +380,20 @@ class Usuarios extends BaseController {
             echo view('usuarios/cambia_password', $data);
             echo view('footer');
         }
+    }
+
+    public function logsAcceso()
+    {
+        $logs = $this->usuarios->obtenerLogs();
+
+        $data = [
+            'titulo' => 'Logs de acceso',
+            'datos' => $logs,
+        ];
+
+        echo view('header');
+        echo view('usuarios/logs_acceso', $data);
+        echo view('footer');
     }
 
 

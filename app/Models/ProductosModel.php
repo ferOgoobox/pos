@@ -27,7 +27,7 @@ class ProductosModel extends Model
                                 ];
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'fecha_alta';
     protected $updatedField  = '';
@@ -50,9 +50,23 @@ class ProductosModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function actualizaStock($id_producto, $cantidad){
-        $this->set('existencia', "existencia + $cantidad", FALSE);
+    public function actualizaStock($id_producto, $cantidad, $operador = '+'){
+        $this->set('existencia', "existencia $operador $cantidad", FALSE);
         $this->where('id', $id_producto);
         $this->update();
+    }
+
+    public function totalProductos(){
+        return $this->where('activo', 1)->countAllResults(); //num_rows
+    }
+
+    public function stockMinimo(){
+        $filters = "activo = 1 AND stock_minimo >= existencia AND inventariable = 1";
+        return $this->where($filters)->countAllResults(); //num_rows
+    }
+
+    public function getProductoMinimo(){
+        $filters = "activo = 1 AND stock_minimo >= existencia AND inventariable = 1";
+        return $this->where($filters)->findAll(); //num_rows
     }
 }

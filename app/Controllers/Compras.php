@@ -119,6 +119,7 @@ class Compras extends BaseController {
         $pdf->SetFont("Arial", 'B', 9);
         // $pdf->image(base_url() . 'images/ofactura.png', 185, 10, 25, 20, 'PNG');
         // $pdf->image(base_url('public/images/ofactura.png'), 185, 10, 25, 20, 'PNG');
+        $pdf->Image("images/logotipo.png", 185, 10, 20, 20, 'PNG');
 
         $pdf->Cell(50, 5, $nombreTienda, 0, 1, 'L');
         $pdf->Cell(20, 5, utf8_decode('Dirección: '), 0, 0, 'L');

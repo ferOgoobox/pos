@@ -1,6 +1,6 @@
-<?php 
-    $user_session = session();
-?> 
+<?php
+$user_session = session();
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -24,10 +24,14 @@
 
     <!-- Custom styles for this page -->
     <link href="<?php echo base_url();  ?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="<?php echo base_url();  ?>/js/jquery-ui/jquery-ui.min.css" rel="stylesheet">
 
     <!-- JQuery -->
-    <script src="<?php echo base_url();  ?>/vendor/jquery/jquery.min.js"></script>
-
+    <script src="<?php echo base_url();  ?>/vendor/jquery/jquery.js"></script>
+    <script src="<?php echo base_url();  ?>/js/jquery-ui/external/jquery/jquery.js"></script>
+    <script src="<?php echo base_url();  ?>/js/jquery-ui/jquery-ui.min.js"></script>
+    
+    
 </head>
 
 <body id="page-top">
@@ -39,7 +43,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?php echo base_url() ?>inicio">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -64,17 +68,18 @@
                 </div>
             </li>
 
-             <!-- Nav Item - Clientes -->
-             <li class="nav-item">
+            <!-- Nav Item - Clientes -->
+            <li class="nav-item">
                 <a class="nav-link" href="<?php echo base_url() ?>clientes">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Clientes</span>
                 </a>
             </li>
 
+            <!-- Nav Item - Clientes -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCompras" aria-expanded="true" aria-controls="collapseCompras">
-                    <i class="fas fa-fw fa-cash-register"></i>
+                    <i class="fas fa-fw fa-truck"></i>
                     <span>Compras</span>
                 </a>
                 <div id="collapseCompras" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -85,7 +90,36 @@
                 </div>
             </li>
 
-             <!-- Nav Item - Administración -->
+            <!-- Nav Item - Caja -->
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo base_url() ?>ventas/venta">
+                    <i class="fas fa-fw fa-cash-register"></i>
+                    <span>Caja</span>
+                </a>
+            </li>
+
+             <!-- Nav Item - Caja -->
+             <li class="nav-item">
+                <a class="nav-link" href="<?php echo base_url() ?>ventas">
+                    <i class="fas fa-fw fa-shopping-cart"></i>
+                    <span>Ventas</span>
+                </a>
+            </li>
+
+             <!-- Nav Item - Reportes -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReportes" aria-expanded="true" aria-controls="collapseReportes">
+                    <i class="fas fa-fw fa-list"></i>
+                    <span>Reportes</span>
+                </a>
+                <div id="collapseReportes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="<?php echo base_url() ?>productos/mostrarMinimos">Reporte mínimos</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Administración -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-tools"></i>
@@ -97,11 +131,12 @@
                         <a class="collapse-item" href="<?php echo base_url() ?>usuarios">Usuarios</a>
                         <a class="collapse-item" href="<?php echo base_url() ?>cajas">Cajas</a>
                         <a class="collapse-item" href="<?php echo base_url() ?>roles">Roles</a>
+                        <a class="collapse-item" href="<?php echo base_url() ?>usuarios/logsAcceso">Logs de acceso</a>
                     </div>
-                </div>  
+                </div>
             </li>
 
-           
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -149,8 +184,8 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php  echo $user_session->nombre ?></span>
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $user_session->nombre; ?></span>
+                                <img class="img-profile rounded-circle" src="/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -158,12 +193,12 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Perfil
                                 </a>
-                                <a class="dropdown-item" href="<?php  echo base_url() ?>usuarios/cambia_password">
+                                <a class="dropdown-item" href="<?php echo base_url() ?>usuarios/cambia_password">
                                     <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Cambiar contraseña
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="<?php  echo base_url() ?>usuarios/logout">
+                                <a class="dropdown-item" href="<?php echo base_url() ?>usuarios/logout">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Cerrar sesión
                                 </a>

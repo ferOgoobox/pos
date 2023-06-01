@@ -13,7 +13,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form action="<?php echo base_url(); ?>/productos/insertar" method="post" autocomplete="off">
+            <form action="<?php echo base_url(); ?>/productos/insertar" method="post" enctype="multipart/form-data" autocomplete="off">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-12 col-sm-6">
@@ -81,9 +81,20 @@
                                  <option value="0" <?php echo set_select('inventariable', '0'); ?>>No</option>
                             </select>
                         </div>
-
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <label for="">Imagen del producto:</label><br>
+                            <!-- <img src="<?php //echo base_url() . '/images/logotipo.png' ?>" alt="" class="img-responsive" width="200"> -->
+                            <input type="file" name="img_producto[]" id="img_producto" accept="image/jpeg" multiple>
+                            <p class="text-danger">*Cargar imagen en formato PNG de 150x150 pixeles</p>
+                        </div>
+                    </div>
+                </div>
+
                 <a href="<?php echo base_url(); ?>/productos" class="btn btn-primary">Regresar</a>
                 <button type="submit" class="btn btn-success">Guardar</button>
             </form>

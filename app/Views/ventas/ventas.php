@@ -6,9 +6,7 @@
 
     <div>
         <p>
-            <a class="btn btn-info" href="<?php echo base_url() ?>/productos/nuevo">Agregar</a>
-            <a class="btn btn-warning" href="<?php echo base_url() ?>/productos/eliminados">Eliminados</a>
-            <a class="btn btn-primary" href="<?php echo base_url() ?>/productos/muestraCodigos">Códigos de barras</a>
+            <a class="btn btn-warning" href="<?php echo base_url() ?>/ventas/eliminados">Eliminados</a>
         </p>
     </div>
 
@@ -20,12 +18,11 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Codigo</th>
-                            <th>Nombre</th>
-                            <th>Precio</th>
-                            <th>Existencia</th>
-                            <th>Imagen</th>
+                            <th>Fecha</th>
+                            <th>Folio</th>
+                            <th>Cliente</th>
+                            <th>Total</th>
+                            <th>Cajero</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -33,15 +30,14 @@
                     <tbody>
                         <?php foreach ($datos as $dato) { ?>
                             <tr>
-                                <td><?php echo $dato['id'] ?></td>
-                                <td><?php echo $dato['codigo'] ?></td>
-                                <td><?php echo $dato['nombre'] ?></td>
-                                <td><?php echo $dato['precio_venta'] ?></td>
-                                <td><?php echo $dato['existencia'] ?></td>
-                                <td><img src="<?php echo base_url() . '/images/productos/'.$dato['id'].'/foto_1.jpg'; ?>" width="100"/></td>
+                                <td><?php echo $dato['fecha_alta'] ?></td>
+                                <td><?php echo $dato['folio'] ?></td>
+                                <td><?php echo $dato['cliente'] ?></td>
+                                <td><?php echo $dato['total'] ?></td>
+                                <td><?php echo $dato['cajero'] ?></td>
                                 <td>
-                                    <a class="btn btn-warning" href="<?php echo base_url() ?>/productos/editar/<?php echo $dato['id'] ?>">
-                                        <i class="fas fa-pencil-alt"></i>
+                                    <a class="btn btn-primary" href="<?php echo base_url() ?>/ventas/muestraTicket/<?php echo $dato['id'] ?>">
+                                        <i class="fas fa-list-alt"></i>
                                     </a>
                                 </td>
                                 <td>
@@ -50,7 +46,7 @@
                                         data-toggle="modal" 
                                         data-target="#modal-confirma" 
                                         data-placement="top"
-                                        data-href="<?php echo base_url() ?>/productos/eliminar/<?php echo $dato['id'] ?>"
+                                        data-href="<?php echo base_url() ?>/ventas/eliminar/<?php echo $dato['id'] ?>"
                                     >
                                         <i class="fas fa-trash"></i>
                                     </a>

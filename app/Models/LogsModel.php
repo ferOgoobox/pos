@@ -4,29 +4,22 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UsuariosModel extends Model
+class LogsModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'usuarios';
+    protected $table            = 'logs';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [
-                            'usuario',
-                            'password',
-                            'nombre',
-                            'id_caja',
-                            'id_rol',
-                            'activo',
-    ];
+    protected $allowedFields    = ['id_usuario', 'evento', 'ip', 'detalles'];
 
     // Dates
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'fecha_alta';
-    protected $updatedField  = 'fecha_edit';
+    protected $updatedField  = '';
     protected $deletedField  = 'deleted_at';
 
     // Validation
@@ -45,11 +38,4 @@ class UsuariosModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-
-    public function obtenerLogs(){
-        $this->select('logs.*, roles.nombre AS rol');
-        $this->join('logs', 'logs.id_usuario = usuarios.id');
-        $this->join('roles', 'usuarios.id_rol = roles.id');
-        return $this->findAll();
-    }
 }

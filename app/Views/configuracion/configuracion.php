@@ -13,7 +13,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form action="<?php echo base_url(); ?>configuracion/actualizar" method="post" autocomplete="off">
+            <form action="<?php echo base_url(); ?>configuracion/actualizar" method="post" enctype="multipart/form-data" autocomplete="off">
             <?php csrf_field(); ?>
                 <div class="form-group">
                     <div class="row">
@@ -55,6 +55,19 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <label for="">Logotipo:</label><br>
+                            <img src="<?php echo base_url() . '/images/logotipo.png' ?>" alt="" class="img-responsive" width="200">
+                            <input type="file" name="tienda_logo" id="tienda_logo" accept="image/png">
+                            <p class="text-danger">*Cargar imagen en formato PNG de 150x150 pixeles</p>
+                        </div>
+                    </div>
+                </div>
+
+
                 <a href="<?php echo base_url(); ?>/unidades" class="btn btn-primary">Regresar</a>
                 <button type="submit" class="btn btn-success">Guardar</button>
             </form>

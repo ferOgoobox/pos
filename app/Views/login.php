@@ -1,8 +1,7 @@
-<?php 
- $user_session = session();
- if ($user_session != null) {
-    
- }
+<?php
+$user_session = session();
+if ($user_session != null) {
+}
 ?>
 
 <!DOCTYPE html>
@@ -29,17 +28,20 @@
     <link href="<?php echo base_url(); ?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
     <style>
-        html, body {
+        html,
+        body {
             height: 100%;
         }
 
         .wrapper {
             min-height: 100%;
-            margin-bottom: -60px; /* Altura del footer */
+            margin-bottom: -60px;
+            /* Altura del footer */
         }
 
         .footer {
-            height: 60px; /* Altura del footer */
+            height: 60px;
+            /* Altura del footer */
             background-color: #f8f9fc;
             text-align: center;
             padding-top: 20px;
@@ -49,7 +51,7 @@
 </head>
 
 <body class="bg-gradient-primary">
-<?php print_r($user_session->nombre); ?>
+    <?php print_r($user_session->nombre); ?>
     <div class="wrapper">
 
         <div class="container">
@@ -76,20 +78,20 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="small mb-1" for="password">Contraseña</label>
-                                                <input type="password" class="form-control form-control-user" id="password" name="password"  placeholder="Ingresa tu contraseña..." required>
+                                                <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Ingresa tu contraseña..." required>
                                             </div>
 
                                             <button class="btn btn-primary btn-user btn-block" type="submit">
                                                 Iniciar sesión
                                             </button>
                                             <br>
-                                            <?php if(isset($validation)) { ?>
+                                            <?php if (isset($validation)) { ?>
                                                 <div class="alert alert-danger">
                                                     <?php echo $validation->listErrors();  ?>
                                                 </div>
                                             <?php } ?>
-                                            
-                                            <?php if(isset($error)) { ?>
+
+                                            <?php if (isset($error)) { ?>
                                                 <div class="alert alert-danger">
                                                     <?php echo $error;  ?>
                                                 </div>

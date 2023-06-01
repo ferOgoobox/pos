@@ -14,7 +14,7 @@ class Configuracion extends BaseController {
     {
         $this->configuracion = new ConfiguracionModel();
 
-        helper(['form']);
+        helper(['form', 'upload']);
 
         $this->reglas = [ 
             'tienda_nombre' => [
@@ -94,6 +94,22 @@ class Configuracion extends BaseController {
             $this->configuracion->whereIn('nombre', ['tienda_direccion'])->set(['valor' => $this->request->getPost('tienda_direccion')])->update();
             $this->configuracion->whereIn('nombre', ['tienda_leyenda'])->set(['valor' => $this->request->getPost('tienda_leyenda')])->update();
     
+            $validation = $this->validate([
+                'tienda_logo' => 'uploaded[tienda_logo]|max_size[tienda_logo,4026]|mime_in[tienda_logo,image/png]',
+            ]);
+
+            if($validation){
+                $ruta_logo = 'images/logotipo.png';
+                if(file_exists($ruta_logo)){
+                    unlink($ruta_logo);
+                }
+                $img = $this->request->getFile('tienda_logo');
+                $img->move('./images', 'logotipo.png');
+            }else{
+                echo 'ERROR al cargar la imagen';
+                exit;
+            }
+
             return redirect()->to(base_url().'/configuracion');
         }else{
             return $this->index($this->validator);
