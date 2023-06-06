@@ -82,7 +82,6 @@ class VentasModel extends Model
         $this->select("sum(total) AS total");
         $filters = "activo = 1 AND DATE(fecha_alta) = '$fecha'";
         return $this->where($filters)->first(); //num_rows
-
     }
     
 }

@@ -6,14 +6,13 @@ use App\Controllers\BaseController;
 use App\Models\ProductosModel;
 use App\Models\UnidadesModel;
 use App\Models\CategoriasModel;
+use App\Models\DetalleRolesPermisosModel;
 use Barcode;
 use FPDF;
 
 class Productos extends BaseController {
 
-    protected $productos;
-    protected $unidades;
-    protected $categorias;
+    protected $productos, $unidades, $categorias, $session, $detalleRolesPermisos;
     protected $reglas;
 
     public function __construct()
@@ -21,6 +20,9 @@ class Productos extends BaseController {
         $this->productos = new ProductosModel();
         $this->unidades = new UnidadesModel();
         $this->categorias = new CategoriasModel();
+        $this->detalleRolesPermisos = new DetalleRolesPermisosModel();
+        $this->session = session();
+
         helper(['form']);
 
         $this->reglas = [
@@ -73,6 +75,17 @@ class Productos extends BaseController {
 
     public function index($activo = '1')
     {
+        if(!isset($this->session->id_usuario)){
+            return redirect()->to(base_url());
+        }
+
+        $permiso = $this->detalleRolesPermisos->verificaPermisos($this->session->id_rol, 'ProductosCatalogo');
+
+        if (!$permiso) {
+            echo 'No tiene permiso';
+            exit;
+        }
+
         $productos = $this->productos->where('activo', $activo)->findAll();
 
         $data = [
@@ -87,6 +100,10 @@ class Productos extends BaseController {
 
     public function eliminados($activo = '0')
     {
+        if(!isset($this->session->id_usuario)){
+            return redirect()->to(base_url());
+        }
+        
         $productos = $this->productos->where('activo', $activo)->findAll();
 
         $data = [

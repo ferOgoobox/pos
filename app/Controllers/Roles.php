@@ -4,15 +4,19 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\RolesModel;
+use App\Models\PermisosModel;
+use App\Models\DetalleRolesPermisosModel;
 
 class Roles extends BaseController {
 
-    protected $roles;
+    protected $roles, $permisos, $detalleRolesPermisos;
     protected $reglas;
 
     public function __construct()
     {
         $this->roles = new RolesModel();
+        $this->permisos = new PermisosModel();
+        $this->detalleRolesPermisos = new DetalleRolesPermisosModel();
 
         helper(['form']);
 
@@ -55,7 +59,6 @@ class Roles extends BaseController {
 
     }
 
-
     public function nuevo()
     {
         $data = ['titulo' => 'Agregar rol'];
@@ -64,7 +67,6 @@ class Roles extends BaseController {
         echo view('roles/nuevo', $data);
         echo view('footer');
     }
-
 
     public function insertar()
     {
@@ -89,7 +91,6 @@ class Roles extends BaseController {
             return redirect()->to(base_url().'/roles');
         }
     }
-
 
     public function editar($id, $valid=null)
     {
@@ -130,7 +131,7 @@ class Roles extends BaseController {
         }else{
             return $this->editar($this->request->getPost('id'), $this->validator);
         }
-    }
+    } 
 
     public function eliminar($id)
     {
@@ -146,6 +147,46 @@ class Roles extends BaseController {
 
         return redirect()->to(base_url().'/roles');
 
+    }
+
+    public function detalles($id_rol)
+    {
+        $permisos = $this->permisos->findAll();
+        $permisosAsigandos = $this->detalleRolesPermisos->where('id_rol', $id_rol)->findAll();
+
+        foreach ($permisosAsigandos as $permisoAsigando)
+        {
+            $datos[$permisoAsigando['id_permiso']] = true;
+        }
+
+        $data = [
+            'titulo' => 'Asignar permisos',
+            'permisos' => $permisos,
+            'id_rol' => $id_rol,
+            'asignado' => $datos
+        ];
+
+        echo view('header');
+        echo view('roles/detalles', $data);
+        echo view('footer');
+    }
+
+    public function guardaPermisos()
+    {
+        if ($this->request->is('post')) {
+            $id_rol = $this->request->getPost('id_rol');
+            $permisos = $this->request->getPost('permisos');
+
+            $this->detalleRolesPermisos->where('id_rol', $id_rol)->delete();
+
+            foreach ($permisos as $permiso) {
+                $this->detalleRolesPermisos->save([
+                    'id_rol' => $id_rol,
+                    'id_permiso' => $permiso
+                ]);
+            }
+        }
+        return redirect()->to(base_url().'roles');
     }
 
 }

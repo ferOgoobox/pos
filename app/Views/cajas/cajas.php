@@ -6,8 +6,8 @@
 
     <div>
         <p>
-            <a class="btn btn-info" href="<?php echo base_url() ?>/cajas/nuevo">Agregar</a>
-            <a class="btn btn-warning" href="<?php echo base_url() ?>/cajas/eliminados">Eliminados</a>
+            <a class="btn btn-info" href="<?php echo base_url() ?>cajas/nuevo_arqueo">Agregar</a>
+            <a class="btn btn-warning" href="<?php echo base_url() ?>cajas/eliminados">Eliminados</a>
         </p>
     </div>
 
@@ -24,6 +24,7 @@
                             <th>Folio</th>
                             <th></th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,7 +34,12 @@
                                 <td><?php echo $dato['nombre'] ?></td>
                                 <td><?php echo $dato['folio'] ?></td>
                                 <td>
-                                    <a class="btn btn-warning" href="<?php echo base_url() ?>/cajas/editar/<?php echo $dato['id'] ?>">
+                                    <a class="btn btn-primary" href="<?php echo base_url() ?>cajas/arqueo/<?php echo $dato['id'] ?>">
+                                        <i class="fas fa-clipboard-list"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-warning" href="<?php echo base_url() ?>cajas/editar/<?php echo $dato['id'] ?>">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
                                 </td>
@@ -43,7 +49,7 @@
                                         data-toggle="modal" 
                                         data-target="#modal-confirma" 
                                         data-placement="top"
-                                        data-href="<?php echo base_url() ?>/cajas/eliminar/<?php echo $dato['id'] ?>"
+                                        data-href="<?php echo base_url() ?>cajas/eliminar/<?php echo $dato['id'] ?>"
                                     >
                                         <i class="fas fa-trash"></i>
                                     </a>

@@ -30,8 +30,8 @@ $user_session = session();
     <script src="<?php echo base_url();  ?>/vendor/jquery/jquery.js"></script>
     <script src="<?php echo base_url();  ?>/js/jquery-ui/external/jquery/jquery.js"></script>
     <script src="<?php echo base_url();  ?>/js/jquery-ui/jquery-ui.min.js"></script>
-    
-    
+    <script src="<?php echo base_url();  ?>/js/chart.umd.js"></script>
+
 </head>
 
 <body id="page-top">

@@ -23,6 +23,7 @@
                             <th>Nombre</th>
                             <th></th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,6 +31,11 @@
                             <tr>
                                 <td><?php echo $dato['id'] ?></td>
                                 <td><?php echo $dato['nombre'] ?></td>
+                                <td>
+                                    <a class="btn btn-success" href="<?php echo base_url() ?>/roles/detalles/<?php echo $dato['id'] ?>">
+                                        <i class="fas fa-list"></i>
+                                    </a>
+                                </td>
                                 <td>
                                     <a class="btn btn-warning" href="<?php echo base_url() ?>/roles/editar/<?php echo $dato['id'] ?>">
                                         <i class="fas fa-pencil-alt"></i>

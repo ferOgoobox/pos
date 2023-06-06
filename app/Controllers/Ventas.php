@@ -44,6 +44,10 @@ class Ventas extends BaseController {
 
     public function eliminados($activo = '0')
     {
+        if(!isset($this->session->id_usuario)){
+            return redirect()->to(base_url());
+        }
+        
         $ventas = $this->ventas->obtener(0);
 
         $data = [

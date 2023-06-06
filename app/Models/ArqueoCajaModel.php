@@ -4,26 +4,28 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UsuariosModel extends Model
+class ArqueoCajaModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'usuarios';
+    protected $table            = 'arqueo_caja';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-                            'usuario',
-                            'password',
-                            'nombre',
-                            'id_caja',
-                            'id_rol',
-                            'activo',
+        'id_caja', 
+        'id_usuario', 
+        'fecha_inicio', 
+        'fecha_fin', 
+        'monto_inicial', 
+        'monto_final', 
+        'total_ventas',
+        'estatus'
     ];
 
     // Dates
-    protected $useTimestamps = true;
+    protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'fecha_alta';
     protected $updatedField  = 'fecha_edit';
@@ -46,10 +48,12 @@ class UsuariosModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function obtenerLogs(){
-        $this->select('logs.*, roles.nombre AS rol');
-        $this->join('logs', 'logs.id_usuario = usuarios.id');
-        $this->join('roles', 'usuarios.id_rol = roles.id');
-        return $this->findAll();
+    public function getData($id_caja){
+        $this->select('arqueo_caja.*, cajas.nombre');
+        $this->join('cajas', 'cajas.id = arqueo_caja.id_caja');
+        $this->where('arqueo_caja.id_caja', $id_caja);
+        $this->orderBy('arqueo_caja.id', 'DESC');
+        $datos = $this->findAll();
+        return $datos;
     }
 }

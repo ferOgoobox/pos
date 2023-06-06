@@ -109,6 +109,12 @@ $routes->get('/cajas/eliminar/(:any)', 'Cajas::eliminar/$1');
 $routes->post('/cajas/actualizar', 'Cajas::actualizar');
 $routes->get('/cajas/eliminados', 'Cajas::eliminados');
 $routes->get('/cajas/reingresar/(:any)', 'Cajas::reingresar/$1');
+$routes->get('/cajas/arqueo/(:any)', 'Cajas::arqueo/$1');
+$routes->get('/cajas/nuevo_arqueo', 'Cajas::nuevo_arqueo');
+$routes->post('/cajas/nuevo_arqueo', 'Cajas::nuevo_arqueo');
+$routes->post('/cajas/cerrar/', 'Cajas::cerrar/');
+$routes->get('/cajas/cerrar/(:any)', 'Cajas::cerrar/$1');
+
 
 $routes->get('/roles', 'Roles::index');
 $routes->get('/roles/nuevo', 'Roles::nuevo');
@@ -118,6 +124,8 @@ $routes->get('/roles/eliminar/(:any)', 'Roles::eliminar/$1');
 $routes->post('/roles/actualizar', 'Roles::actualizar');
 $routes->get('/roles/eliminados', 'Roles::eliminados');
 $routes->get('/roles/reingresar/(:any)', 'Roles::reingresar/$1');
+$routes->get('/roles/detalles/(:any)', 'Roles::detalles/$1');
+$routes->post('/roles/guardaPermisos', 'Roles::guardaPermisos');
 
 $routes->get('/compras', 'Compras::index');
 $routes->get('/compras/nuevo', 'Compras::nuevo');
@@ -152,7 +160,7 @@ $routes->post('/ventas/actualizar', 'Ventas::actualizar');
 $routes->get('/ventas/reingresar/(:any)', 'Ventas::reingresar/$1');
 $routes->get('/ventas/buscarPorCodigo/(:any)', 'Ventas::buscarPorCodigo/$1');
 
-
+$routes->get('/factura/facturar/(:any)', 'Factura::facturar/$1');
 
 
 // $routes->get('TemporalCompra/insertar/(:num)/(:num)/(:num)', 'TemporalCompra/insertar/$1/$2/$3');

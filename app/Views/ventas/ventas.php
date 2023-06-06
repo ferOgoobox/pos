@@ -25,6 +25,7 @@
                             <th>Cajero</th>
                             <th></th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,6 +36,11 @@
                                 <td><?php echo $dato['cliente'] ?></td>
                                 <td><?php echo $dato['total'] ?></td>
                                 <td><?php echo $dato['cajero'] ?></td>
+                                <td>
+                                    <a class="btn btn-info" href="<?php echo base_url() ?>/factura/facturar/<?php echo $dato['id'] ?>">
+                                        <i class="fas fa-list"></i>
+                                    </a>
+                                </td>
                                 <td>
                                     <a class="btn btn-primary" href="<?php echo base_url() ?>/ventas/muestraTicket/<?php echo $dato['id'] ?>">
                                         <i class="fas fa-list-alt"></i>

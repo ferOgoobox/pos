@@ -4,26 +4,19 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UsuariosModel extends Model
+class DetalleRolesPermisosModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'usuarios';
+    protected $table            = 'detalle_roles_permisos';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [
-                            'usuario',
-                            'password',
-                            'nombre',
-                            'id_caja',
-                            'id_rol',
-                            'activo',
-    ];
+    protected $allowedFields    = ['id_rol', 'id_permiso'];
 
     // Dates
-    protected $useTimestamps = true;
+    protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'fecha_alta';
     protected $updatedField  = 'fecha_edit';
@@ -46,10 +39,19 @@ class UsuariosModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function obtenerLogs(){
-        $this->select('logs.*, roles.nombre AS rol');
-        $this->join('logs', 'logs.id_usuario = usuarios.id');
-        $this->join('roles', 'usuarios.id_rol = roles.id');
-        return $this->findAll();
+    public function verificaPermisos($id_rol, $permiso)
+    {
+        $tieneAcceso = false;
+        $this->select('*');
+        $this->join('permisos', 'detalle_roles_permisos.id_permiso = permisos.id');
+        $existe = $this->where(['id_rol' => $id_rol, 'permisos.nombre' => $permiso])->first();
+
+        // echo $this->getLastQuery();
+
+        if($existe != null) {
+            $tieneAcceso = true;
+        }
+        return $tieneAcceso;
     }
+
 }
