@@ -115,6 +115,7 @@ $user_session = session();
                 <div id="collapseReportes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="<?php echo base_url() ?>productos/mostrarMinimos">Reporte mínimos</a>
+                        <a class="collapse-item" href="<?php echo base_url() ?>productos/mostrarMinimosExcel">Reporte mínimos excel</a>
                     </div>
                 </div>
             </li>

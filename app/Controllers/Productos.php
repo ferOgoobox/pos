@@ -7,6 +7,8 @@ use App\Models\ProductosModel;
 use App\Models\UnidadesModel;
 use App\Models\CategoriasModel;
 use App\Models\DetalleRolesPermisosModel;
+use \PhpOffice\PhpSpreadsheet\Spreadsheet;
+use \PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Barcode;
 use FPDF;
 
@@ -391,6 +393,83 @@ class Productos extends BaseController {
         
         $this->response->setHeader('Content-Type', 'application/pdf');
         $pdf->Output('Codigos.pdf', 'I');
+    }
+
+    public function mostrarMinimosExcel()
+    {
+        $spreadsheet = new Spreadsheet();
+
+        $spreadsheet->getProperties()
+            ->setCreator('Fernando')
+            ->setTitle('Reporte POS');
+
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+        $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing();
+        $drawing->setName('logo');
+        $drawing->setPath('images/logotipo.png');
+        $drawing->setHeight(60);
+        $drawing->setCoordinates('A1');
+        $drawing->setWorksheet($sheet);
+        // $spreadsheet->getActiveSheet()->getHeaderFooter()->addImage($drawing, \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooter::IMAGE_HEADER_LEFT);
+
+        $sheet->mergeCells("A3:D3");
+        $sheet->getStyle('A3')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+        $sheet->getStyle('A3')->getFont()->setSize(14);
+        $sheet->getStyle('A3')->getFont()->setName('Arial');
+        $sheet->setCellValue('A3', 'Reporte de producto con stock mínimo');
+
+        $sheet->setCellValue('A5', 'Código');
+        $sheet->getColumnDimension('A')->setWidth(20);
+
+        $sheet->setCellValue('B5', 'Nombre');
+        $sheet->getColumnDimension('B')->setWidth(40);
+
+        $sheet->setCellValue('C5', 'Existencias');
+        $sheet->getColumnDimension('C')->setWidth(20);
+
+        $sheet->setCellValue('D5', 'Stock');
+        $sheet->getColumnDimension('D')->setWidth(20);
+
+        $sheet->getStyle('A5:D5')->getFont()->setBold(true);
+
+        $datosProductos = $this->productos->getProductoMinimo();
+
+        $fila = 6;
+
+        foreach ($datosProductos as $producto) {
+            $sheet->setCellValue('A'.$fila, $producto['codigo']);
+            $sheet->setCellValue('B'.$fila, $producto['nombre']);
+            $sheet->setCellValue('C'.$fila, $producto['existencia']);
+            $sheet->setCellValue('D'.$fila, $producto['stock_minimo']);
+            $fila++;
+        }
+
+        $ultimaFila = $fila - 1;
+
+        $styleArray = [
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    'color' => [ 'rgb' => '000000'],
+                ]
+            ]
+        ];
+
+        $sheet->getStyle('A5:D'.$ultimaFila)->applyFromArray($styleArray);
+
+        $sheet->setCellValue('B'.$fila, 'Total');
+        $sheet->setCellValueExplicit('C'.$fila, '=SUM(C5:C'.$ultimaFila.')', \PhpOffice\PhpSpreadsheet\Cell\Datatype::TYPE_FORMULA);
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('prueba1.xlsx');
+
+        $this->session->setFlashdata('mensaje', 'El archivo Excel se ha descargado correctamente.');
+
+        // Redirigir a la página Inicio
+        return redirect()->to(base_url(). 'inicio');
+
     }
 
 }

@@ -30,6 +30,7 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/inicio', 'Inicio::index');
+$routes->get('/inicio/excel', 'Inicio::excel');
 
 
 $routes->get('/', 'Usuarios::login');
@@ -72,6 +73,7 @@ $routes->get('/productos/generaBarras', 'Productos::generaBarras');
 $routes->get('/productos/muestraCodigos', 'Productos::muestraCodigos');
 $routes->get('/productos/mostrarMinimos', 'Productos::mostrarMinimos');
 $routes->get('/productos/generaMinimosPdf', 'Productos::generaMinimosPdf');
+$routes->get('/productos/mostrarMinimosExcel', 'Productos::mostrarMinimosExcel');
 
 $routes->get('/clientes', 'Clientes::index');
 $routes->get('/clientes/nuevo', 'Clientes::nuevo');
